@@ -27,3 +27,7 @@ Sog'liqqa ta'siri hali isbotlanmagan — lekin "butilka" degani "plastiksiz" deg
 Siz qaysi suvni ichasiz? Izohlarda yozing 👇
 Manba: Qian et al., PNAS 2024, doi:10.1073/pnas.2300582121
 #suv #mikroplastik #nanoplastik #ilmfan #maqola #suvyektiv
+
+## Variant B — "app-promo" uslubi (2026-10-26)
+Foydalanuvchi bergan namuna (Facebook reel, "Tax Center For Uzbeks") uslubida: to'q ko'k gradient + suzuvchi yumshoq dog'lar, ulkan oq sarlavhalar blur-in bilan, sariq qiyshiq urg'u so'zlar, oq UI kartalar, muhr, polaroid kartalar, sariq nur portlashi, lupa, oxirida qidiruv qatoriga "@suvyektiv" yoziladi. 2–5 s sahnalar, pastki subtitrsiz, ~34 s. Fayl: src/promo.py.
+Sahnalar: Butilka suvi toza deb o'ylaysizmi? → 1 litrda 240 000 (laboratoriya kartasi + PLASTIK muhri) → Ular ko'zga ko'rinmaydi! → Soch 70 µm vs nanoplastik <1 µm → 90% nanoplastik → PNAS 2024, 10–100× ko'p (lupa) → Xavflimi? Sog'liqqa ta'siri hali isbotlanmagan → Xulosa: "Butilka" ≠ "plastiksiz" → Doktor H₂O, Suvni qadrlang!, @suvyektiv.

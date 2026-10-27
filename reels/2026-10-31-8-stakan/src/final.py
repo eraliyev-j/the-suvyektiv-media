@@ -139,8 +139,8 @@ if __name__ == "__main__":
         # audio: intro clip audio, then cut voice; music bed under everything, ducked
         fc.append(f"[0:a]aresample=48000,aformat=channel_layouts=mono,atrim=0:{A_DUR:.3f}[ia]")
         fc.append(f"[{n + 2}:a]aresample=48000,aformat=channel_layouts=mono[va]")
-        fc.append("[ia][va]concat=n=2:v=0:a=1,highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120,loudnorm=I=-16:TP=-1.5[voice]")
-        fc.append(f"[{n + 3}:a]atrim=0:{total:.3f},volume=0.16,afade=t=in:d=1,afade=t=out:st={total - 1.5:.2f}:d=1.5[mus]")
+        fc.append(f"[ia][va]concat=n=2:v=0:a=1,apad=pad_dur=4,highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120,loudnorm=I=-16:TP=-1.5,atrim=0:{total:.3f}[voice]")
+        fc.append(f"[{n + 3}:a]atrim=0:{total:.3f},volume={0.0 if "--nomusic" in sys.argv else 0.16},afade=t=in:d=1,afade=t=out:st={total - 1.5:.2f}:d=1.5[mus]")
         fc.append("[voice][mus]amix=inputs=2:duration=longest:normalize=0,alimiter=limit=0.95[A]")
         subprocess.run(["ffmpeg", "-v", "error", "-y"] + inp + ["-filter_complex", ";".join(fc), "-map", "[V]", "-map", "[A]", "-t", f"{total:.3f}",
                         "-c:v", "libx264", "-crf", "21", "-preset", "fast", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out], check=True)

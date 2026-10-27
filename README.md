@@ -1,1 +1,1 @@
-# suvyektiv-media
+# the-suvyektiv-media

@@ -46,3 +46,43 @@ Aybdor — vodorod sulfid (H₂S). Kislorodsiz muhitda bakteriyalar uni chiqarad
 2026 yilda hovuzlar yopilib, havo filtrlanmoqda. Lekin asosiy yechim — korxonalar oqovasini kanalizatsiyaga tashlashdan oldin tozalashi.
 Siz yashaydigan joyda ham shunday hid bormi? Izohlarda yozing 👇
 #suv #toshkent #sergeli #salar #ekologiya #oqovasuv #suvyektiv
+
+---
+
+## v2 (2026-10-27) — ig-reel qoidalari bilan qayta yozildi
+
+### Hook variantlari (≤ 3 s)
+- A (savol): "Sergelidagi chirigan tuxum hidi qayerdan keladi?"
+- B (raqam + savol) ✅: "Sergelidagi hid uchun 9,5 milliard so'm sarflandi. Nega?"
+- C (qarshi fikr): "Salardagi hid faqat inshootning aybi emas."
+Tanlov: B — aniq raqam + ochiq savol, birinchi kadrda ham ko'rsatiladi; oxirida unga qaytiladi (loop).
+
+### Beat sheet (har biri ≤ 4 s, ekran kartasi ≤ 6 so'z)
+| # | Ovoz (Javohir) | Ekran kartasi |
+|---|---|---|
+| 1 | Sergelidagi hid uchun 9,5 milliard so'm sarflandi. Nega? | 9,5 mlrd so'm. Nega? |
+| 2 | Men suv va oqova suv bo'yicha tadqiqot qilaman. | Suv va oqova suv tadqiqotchisi |
+| 3 | Salar inshooti 1961 yilda ishga tushgan. | 1961 yildan beri |
+| 4 | Bugun u kuniga 900 ming kub metr oqova qabul qiladi. | 900 000 m³ / kun |
+| 5 | Hidning aybdori vodorod sulfid, H₂S. | Aybdor: H₂S |
+| 6 | Kislorod yetmasa, bakteriyalar shu gazni chiqaradi. | Kislorod yo'q → H₂S |
+| 7 | Burnimiz uni milliard qismdan yarim qism bo'lsa ham sezadi. | 0,5 ppb ham seziladi |
+| 8 | Lekin muammo faqat inshootda emas edi. | Lekin… |
+| 9 | 2021 yilda Salarga 18 ta korxona oqova tashlagani aniqlandi. | 18 ta korxona (2021) |
+| 10 | Jumladan teri zavodlari. | Teri zavodlari ham |
+| 11 | Kimyoviy moddalar foydali mikroorganizmlarni nobud qilgan. | Foydali bakteriyalar nobud |
+| 12 | 22 mas'ulga ish ochildi. | 22 mas'ulga ish |
+| 13 | 2026 yil yozida hovuzlar germetik yopildi. | Hovuzlar yopildi (2026) |
+| 14 | Havo sorbent, ultrabinafsha nur va ko'mirdan o'tkazilmoqda. | Sorbent · UB · ko'mir |
+| 15 | Rasmiylar H₂S nolga tushdi, deyishmoqda. | Rasmiy: H₂S = 0 |
+| 16 | Lekin hidni yo'qotish suvni tozalash degani emas. | Hid yo'q ≠ suv toza |
+| 17 | 9,5 milliard hidni yopdi. Asosiy yechim esa korxonalar oqovasini o'zi tozalashi. | Yechim: korxona o'zi tozalasin |
+| 18 | CTA: Suvni qadrlang! Suv haqida bilmoqchi bo'lganlaringizni izohlarda yozib qoldiring. Bizni kuzatishda davom eting, suv haqida suvyektiv fikrlaymiz! | CTA kartasi |
+~60–65 s. Raqamlar o'zgarmadi, hammasi yuqoridagi manbalardan.
+
+### Caption v2 (≤ 5 hashtag, em-dash yo'q)
+Sergelidagi hid uchun 9,5 milliard so'm sarflandi. Salar tozalash inshootidagi hid qayerdan keladi va u yo'qoldimi?
+Aybdor vodorod sulfid (H₂S). Kislorod yetmagan joyda bakteriyalar shu gazni chiqaradi, burnimiz esa uni juda oz miqdorda ham sezadi.
+2021 yilda Salarga 18 ta korxona oqova tashlagani aniqlangan. 2026 yilda hovuzlar yopilib, havo filtrlanmoqda. Lekin hidni yo'qotish suvni tozalash degani emas.
+Siz yashaydigan joyda ham shunday hid bormi? Izohlarda yozing 👇
+#salar #sergeli #oqovasuv #toshkent #suvyektiv

@@ -9,7 +9,8 @@ Lokal ishlatganda nusxasini `~/.claude/instagram/voice.md` ga qo'ying.
 - **Handle:** Instagram @suvyektiv · YouTube "Doktor H₂O"
 - **What I do, in one sentence:** Suv haqidagi ilmiy ma'lumot va maqolalarni o'zbek tilida sodda qilib tushuntiraman.
 - **Who I am talking to:** O'zbek tilida so'zlashuvchi oddiy tomoshabin — suv, ichimlik suvi, tejash, oqova suv haqida eshitgan, lekin manbasini bilmaydigan odamlar.
-- **What I sell:** Hech narsa. Maqsad — ishonchli ilmiy kontent va kuzatuvchilar.
+- **What I sell:** Hech narsa. Maqsad — O'zbekistonda ismi va yuzi bilan tanilgan suv mutaxassisi brendi (qaytganda noldan boshlamaslik).
+- **Status (halol):** magistrant, suv tadqiqotchisi, Koreya (Busan). "Doktor H₂O" — brend nomi, unvon emas.
 
 ## What I sound like
 

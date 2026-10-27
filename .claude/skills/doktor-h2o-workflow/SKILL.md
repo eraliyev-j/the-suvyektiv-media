@@ -5,7 +5,7 @@ description: Use whenever preparing a Doktor H2O (@suvyektiv) Uzbek reel, Short,
 
 # Doktor H₂O — reel / post ish tartibi
 
-Ovoz va brend: `brand/voice.md` (avval o'qing). Ichki skill paketi: `.claude/skills/ig-*`
+Ovoz va brend: `brand/voice.md` (avval o'qing). Uzoq muddatli maqsad va strategiya: `doktor-h2o-brand` skill (har reel shu maqsadga xizmat qilsin). Ichki skill paketi: `.claude/skills/ig-*`
 (Jake Schincariol, "instagram-agent-skill", MIT — `LICENSE-instagram-agent-skill`).
 
 ## Qaysi skill qachon

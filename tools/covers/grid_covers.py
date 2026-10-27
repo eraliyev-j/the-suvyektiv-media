@@ -1,12 +1,12 @@
 """Uniform SKY grid covers for the older reels (2026-10-27 profile refresh).
-usage: python3 grid_covers.py brand/mascot.png <out_dir>"""
+usage: python3 grid_covers.py brand/mascot.png <out_dir> <photo_dir with big_<slug>.jpg (Pixabay)>"""
 import sys, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 W, H = 1080, 1920
 F = "/usr/share/fonts/opentype/inter/InterDisplay-{}.otf"
 fn = lambda w, s: ImageFont.truetype(F.format(w), s)
 SKY, NAVY, WHITE, YEL, BLUE = (132, 210, 253), (11, 31, 51), (255, 255, 255), (255, 212, 59), (37, 99, 235)
-MASCOT, OUT = sys.argv[1], sys.argv[2]
+MASCOT, OUT, PHOTOS = sys.argv[1], sys.argv[2], sys.argv[3]
 FLIP = set()
 
 COVERS = [  # slug, chip, line1, line2, line3, cutout, icon, crop_bottom
@@ -28,6 +28,19 @@ def fit(s, w, maxsize, weight="Black"):
     sz = maxsize
     while fn(weight, sz).getlength(s) > w and sz > 60: sz -= 4
     return fn(weight, sz)
+
+def photo_card(im, path, x, y, w=620, h=440, angle=-3):
+    ph = Image.open(path).convert("RGB"); r = max(w / ph.width, h / ph.height)
+    ph = ph.resize((int(ph.width * r) + 1, int(ph.height * r) + 1), Image.LANCZOS)
+    ph = ph.crop(((ph.width - w) // 2, (ph.height - h) // 2, (ph.width - w) // 2 + w, (ph.height - h) // 2 + h))
+    b = 14; card = Image.new("RGBA", (w + 2 * b, h + 2 * b + 46), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    cd.rounded_rectangle([0, 0, card.width - 1, card.height - 1], 26, fill=WHITE + (255,))
+    mask = Image.new("L", (w, h), 0); ImageDraw.Draw(mask).rounded_rectangle([0, 0, w - 1, h - 1], 16, fill=255)
+    card.paste(ph, (b, b), mask)
+    cd.text((b + 4, h + b + 23), "Foto: Pixabay", font=fn("Medium", 24), fill=(90, 110, 130, 255), anchor="lm")
+    card = card.rotate(angle, resample=Image.BICUBIC, expand=True)
+    sh = Image.new("RGBA", card.size, (0, 40, 90, 0)); sh.putalpha(card.getchannel("A").point(lambda v: int(v * .35)))
+    im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(20)), (x + 10, y + 20)); im.alpha_composite(card, (x, y))
 
 def icon(im, kind, x, y, s):
     l = Image.new("RGBA", (s, s)); d = ImageDraw.Draw(l); lw = max(6, s // 40)
@@ -87,7 +100,8 @@ for slug, chip, l1, l2, l3, cut, ic, cb in COVERS:
     f3 = fit(l3, 900, 96, "BlackItalic")
     lay = Image.new("RGBA", (1000, 200)); ImageDraw.Draw(lay).text((20, 20), l3, font=f3, fill=YEL + (255,), stroke_width=6, stroke_fill=NAVY + (255,))
     lay = lay.rotate(3, resample=Image.BICUBIC, expand=True); im.alpha_composite(lay, (40, y - 10)); y += f3.size + 80
-    if ic: icon(im, ic, 60, max(y, 880), 380 if ic != "steps" else 420)
+    photo_card(im, f"{PHOTOS}/big_{slug}.jpg", 30, max(y - 10, 840))
+    im.alpha_composite(m, (mx, my))  # mascot stays in front of the photo
     ImageDraw.Draw(im).text((60, 1415), "Doktor H₂O · @suvyektiv", font=fn("Bold", 38), fill=NAVY + (255,))
     im.convert("RGB").save(f"{OUT}/cover_{slug}.jpg", quality=94)
     print(slug)

@@ -58,7 +58,6 @@ h1{font-family:Manrope,ManropeX,sans-serif;font-weight:800;font-size:76px;line-h
 
 e = html.escape
 # Branding (2026-10-21: Instagram and YouTube share one look — Doktor H2O / @suvyektiv, sky theme).
-# Old Instagram look: THEME=navy BRAND=the.waterengineer HANDLE=@the.waterengineer
 BRAND = os.environ.get("BRAND", "Doktor H<sub>2</sub>O")  # raw HTML allowed
 HANDLE = os.environ.get("HANDLE", "@suvyektiv")
 TAGLINE = os.environ.get("TAGLINE", "Suv haqida, oddiy tilda.")

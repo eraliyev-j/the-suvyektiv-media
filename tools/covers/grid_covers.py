@@ -1,12 +1,13 @@
 """Uniform SKY grid covers for the older reels (2026-10-27 profile refresh).
-usage: python3 grid_covers.py <cutout_dir> <out_dir>"""
+usage: python3 grid_covers.py brand/mascot.png <out_dir>"""
 import sys, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 W, H = 1080, 1920
 F = "/usr/share/fonts/opentype/inter/InterDisplay-{}.otf"
 fn = lambda w, s: ImageFont.truetype(F.format(w), s)
 SKY, NAVY, WHITE, YEL, BLUE = (132, 210, 253), (11, 31, 51), (255, 255, 255), (255, 212, 59), (37, 99, 235)
-CUT, OUT = sys.argv[1], sys.argv[2]
+MASCOT, OUT = sys.argv[1], sys.argv[2]
+FLIP = set()
 
 COVERS = [  # slug, chip, line1, line2, line3, cutout, icon, crop_bottom
     ("welcome", None, "Tanishing:", "Doktor H₂O", "suv haqida, ilm bilan", "w2", None, 0.50),
@@ -68,15 +69,13 @@ for slug, chip, l1, l2, l3, cut, ic, cb in COVERS:
     g = Image.new("RGBA", (W, H)); d = ImageDraw.Draw(g)
     d.ellipse([-300, -200, 700, 700], fill=(200, 236, 255, 160)); d.ellipse([500, 1100, 1500, 2100], fill=(90, 175, 245, 120))
     im.alpha_composite(g.filter(ImageFilter.GaussianBlur(160)))
-    # person, bottom-right (real frame from the reel)
-    m = Image.open(f"{CUT}/cut_{cut}.png").convert("RGBA")
-    hb = int(m.height * cb) if cb < 1 else m.height - int(cb)
-    m = m.crop((0, 0, m.width, hb))
-    sc = 1250 / m.height if slug != "welcome" else 1250 / m.height
-    sc = min(sc, 960 / m.width); m = m.resize((int(m.width * sc), int(m.height * sc)), Image.LANCZOS)
-    mx, my = W - m.width + (120 if slug != "welcome" else -20), H - m.height
-    sh = Image.new("RGBA", m.size, (0, 40, 90, 0)); sh.putalpha(m.getchannel("A").point(lambda v: int(v * .3)))
-    im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(18)), (mx - 16, my + 16)); im.alpha_composite(m, (mx, my))
+    # mascot (Doktor H2O logo character), bottom-right, same placement as the 8 stakan cover
+    m = Image.open(MASCOT).convert("RGBA")
+    if slug in FLIP: m = m.transpose(Image.FLIP_LEFT_RIGHT)
+    sc = 1050 / m.height; m = m.resize((int(m.width * sc), int(m.height * sc)), Image.LANCZOS)
+    mx, my = W - m.width + 250, H - m.height + 60
+    sh = Image.new("RGBA", m.size, (0, 40, 90, 0)); sh.putalpha(m.getchannel("A").point(lambda v: int(v * .35)))
+    im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(18)), (mx - 14, my + 18)); im.alpha_composite(m, (mx, my))
     # text block (inside the 3:4 grid crop y 240..1680)
     y = 270
     if chip:
@@ -89,7 +88,6 @@ for slug, chip, l1, l2, l3, cut, ic, cb in COVERS:
     lay = Image.new("RGBA", (1000, 200)); ImageDraw.Draw(lay).text((20, 20), l3, font=f3, fill=YEL + (255,), stroke_width=6, stroke_fill=NAVY + (255,))
     lay = lay.rotate(3, resample=Image.BICUBIC, expand=True); im.alpha_composite(lay, (40, y - 10)); y += f3.size + 80
     if ic: icon(im, ic, 60, max(y, 880), 380 if ic != "steps" else 420)
-    ImageDraw.Draw(im).text((60, 1540), "Doktor H₂O", font=fn("Black", 44), fill=NAVY + (255,))
-    ImageDraw.Draw(im).text((60, 1596), "@suvyektiv", font=fn("Bold", 38), fill=NAVY + (255,))
+    ImageDraw.Draw(im).text((60, 1415), "Doktor H₂O · @suvyektiv", font=fn("Bold", 38), fill=NAVY + (255,))
     im.convert("RGB").save(f"{OUT}/cover_{slug}.jpg", quality=94)
     print(slug)

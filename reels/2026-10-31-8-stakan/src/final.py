@@ -145,3 +145,55 @@ if __name__ == "__main__":
         subprocess.run(["ffmpeg", "-v", "error", "-y"] + inp + ["-filter_complex", ";".join(fc), "-map", "[V]", "-map", "[A]", "-t", f"{total:.3f}",
                         "-c:v", "libx264", "-crf", "21", "-preset", "fast", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out], check=True)
         print("total", round(total, 2))
+
+# ---- word-anchored captions (v2): each ≤24-char chunk is timed from whisper word boundaries
+def _chunks(s):
+    s = re.sub(r"(\d) (\d)", "\\1\u00a0\\2", s); out = []; cur = []
+    for w in s.split(" "):
+        if cur and len(" ".join(cur + [w])) > 24: out.append(" ".join(cur)); cur = []
+        cur.append(w)
+    out.append(" ".join(cur)); return out
+
+def _timeline(words, a, b):
+    """whisper words inside [a,b] -> list of (t_start, t_end, cum_char_start, cum_char_end)"""
+    ws = [w for w in words if w[1] > a - 0.05 and w[0] < b + 0.05]
+    tl = []; c = 0
+    for s, e, t in ws:
+        n = max(1, len(t.strip())); tl.append((max(s, a), min(e, b), c, c + n)); c += n
+    return tl, c
+
+def _time_at(tl, total, frac):
+    x = frac * total
+    for s, e, c0, c1 in tl:
+        if x <= c1: return s + (e - s) * (x - c0) / max(1, c1 - c0)
+    return tl[-1][1]
+
+def caps_events():
+    A = [tuple(w) for seg in json.load(open(F_ + "a.json")) for w in seg["w"]]
+    B = [tuple(w) for seg in json.load(open(F_ + "b.json")) for w in seg["w"]]
+    ev = []
+    for words, lines, mapf in ((A, [(s, e, t) for s, e, t in INTRO], lambda x: x),
+                               (B, [(s, e, t) for s, e, t, _ in LINES], lambda x: A_DUR + remap(x))):
+        for s, e, t in lines:
+            tl, tot = _timeline(words, s, e)
+            ch = _chunks(t); L = sum(len(c) for c in ch) + len(ch) - 1; pos = 0
+            for c in ch:
+                f0, f1 = pos / L, min(1, (pos + len(c)) / L); pos += len(c) + 1
+                t0, t1 = (_time_at(tl, tot, f0), _time_at(tl, tot, f1)) if tl else (s + (e - s) * f0, s + (e - s) * f1)
+                ev.append([mapf(t0) - 0.06, mapf(t1) + 0.12, c])
+    for i in range(len(ev) - 1):                       # no overlaps; close tiny gaps inside a sentence
+        if ev[i][1] > ev[i + 1][0]: ev[i][1] = ev[i + 1][0]
+        elif ev[i + 1][0] - ev[i][1] < 0.25: ev[i][1] = ev[i + 1][0]
+    for i in range(len(ev)):                           # every chunk readable for at least 0.4 s
+        if ev[i][1] - ev[i][0] < 0.4:
+            ev[i][1] = ev[i][0] + 0.4
+            if i + 1 < len(ev) and ev[i + 1][0] < ev[i][1]:
+                ev[i + 1][0] = ev[i][1]
+    return [tuple(x) for x in ev]
+
+if __name__ == "__main__" and sys.argv[1] == "caps2":
+    import news
+    news.KEY = re.compile(r"\d|%|litr|stakan|science|chanqoq|suvyektiv|maqola", re.I)
+    ev = caps_events()
+    for x in ev: print(f"{x[0]:6.2f}-{x[1]:6.2f} {x[2]}")
+    if "--dry" not in sys.argv: news.caps_render(ev, A_DUR + B_DUR + 0.6, F_ + "caps.mov")

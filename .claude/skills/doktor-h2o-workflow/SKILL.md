@@ -21,6 +21,7 @@ Ovoz va brend: `brand/voice.md` (avval o'qing). Ichki skill paketi: `.claude/ski
 | Haftalik reja (Se/Pa/Sh 16:00 KST) | `ig-plan` |
 | Izohlarga javob, DM | `ig-reply`, `ig-comment`, `ig-dm` |
 | Profil / akkaunt tahlili | `ig-profile`, `ig-audit` |
+| Intro / talking-head videoga effekt | `effects` (fx.py, 42 effekt, Vibha Ramprakash, MIT) |
 
 ## Reel uchun majburiy qoidalar (ig-reel'dan)
 
@@ -49,3 +50,14 @@ Paket kodi o'zgartirilmagan.
 Video yig'ish: `reels/<sana>/src/*.py` (Pillow kadrlar → ffmpeg), faster-whisper small bilan
 so'z vaqtlari, loudnorm oldidan `apad`. Har bir yangi reel — yangi vizual uslub.
 Post: Buffer, faqat foydalanuvchi aytganda; cover — oxirgi 0.5 s kadr + thumbnailOffset.
+
+## Video effektlar (`.claude/skills/effects`)
+
+Javohir kadrda gapirgan klipga (ayniqsa intro, birinchi 3 s) qo'llanadi. Yuzni kuzatadi, matnni boshning orqasiga qo'yadi.
+Brendga mos (yorug' fon, jiddiy uslub):
+- Intro hook: `locked-on`, `lean-in` (bitta so'zda punch-in), `slow-push`, `backdrop-word` (color=84D2FD, o'zbekcha kalit so'z), `headline-box`, `split-headline`, `dot-reveal`.
+- Yangilik / manba: `match-cut` (yangilik sahifalari, manba ekranda), `broll-split`.
+- Raqamlar: `liquid-glass-graph` (faqat manbadagi real raqam), `countdown-flip`.
+- Ro'yxat / layfhak: `apple-toggles`, `checklist`, `todo`.
+Ishlatilmaydi: `spotlight`, `glitter-spotlight`, `led-sign`, `moody`, `timeline`, `red-collage` (qorong'i fon); `scribble`, `tier-list`, `uninstall`, `shortcut-rain` (bolabop / mavzuga mos emas); Instagram UI taqlidi (`comment-box`, `tap`, `reel-frame`).
+Effekt oynasi 1,5-4 s; avval `--still` bilan tekshirish kadri, keyin render. Subtitr effektdan keyin ustidan qo'shiladi.

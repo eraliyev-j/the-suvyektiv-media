@@ -13,7 +13,7 @@ COVERS = [  # slug, chip, line1, line2, line3, cutout, icon, crop_bottom
     ("welcome", None, "Tanishing:", "Doktor H₂O", "suv haqida, ilm bilan", "w2", None, 0.50),
     ("suv-qanday", None, "Suv qanday", "tozalanadi?", "4 bosqichda", "s20", "steps", 120),
     ("fizik", "SUV TOZALASH · 1/4", "1-bosqich:", "Fizik usul", "panjara, qum, tindirish", "s8", "glass", 120),
-    ("biologik", "SUV TOZALASH · 2/4", "Suvni kim tozalaydi?", "Bakteriyalar", "ha, foydalilari!", "s16", "bact", 120),
+    ("biologik", "SUV TOZALASH · 2/4", "Suvni tozalaydi:", "Bakteriyalar", "ha, foydalilari!", "s16", "bact", 120),
     ("kimyoviy", "SUV TOZALASH · 3/4", "Kran suvida", "xlor hidi", "nega kerak?", "s24", "flask", 120),
     ("membranali", "SUV TOZALASH · 4/4", "Filtr ichida", "membrana", "qanday ishlaydi?", "s12", "membrane", 120),
     ("qaynatilgan", None, "Qaynatilgan suv", "tozami?", "choynakdagi oq qatlam", "q2", "kettle", 0.62),
@@ -33,11 +33,10 @@ def photo_card(im, path, x, y, w=620, h=440, angle=-3):
     ph = Image.open(path).convert("RGB"); r = max(w / ph.width, h / ph.height)
     ph = ph.resize((int(ph.width * r) + 1, int(ph.height * r) + 1), Image.LANCZOS)
     ph = ph.crop(((ph.width - w) // 2, (ph.height - h) // 2, (ph.width - w) // 2 + w, (ph.height - h) // 2 + h))
-    b = 14; card = Image.new("RGBA", (w + 2 * b, h + 2 * b + 46), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    b = 14; card = Image.new("RGBA", (w + 2 * b, h + 2 * b), (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
     cd.rounded_rectangle([0, 0, card.width - 1, card.height - 1], 26, fill=WHITE + (255,))
     mask = Image.new("L", (w, h), 0); ImageDraw.Draw(mask).rounded_rectangle([0, 0, w - 1, h - 1], 16, fill=255)
     card.paste(ph, (b, b), mask)
-    cd.text((b + 4, h + b + 23), "Foto: Pixabay", font=fn("Medium", 24), fill=(90, 110, 130, 255), anchor="lm")
     card = card.rotate(angle, resample=Image.BICUBIC, expand=True)
     sh = Image.new("RGBA", card.size, (0, 40, 90, 0)); sh.putalpha(card.getchannel("A").point(lambda v: int(v * .35)))
     im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(20)), (x + 10, y + 20)); im.alpha_composite(card, (x, y))

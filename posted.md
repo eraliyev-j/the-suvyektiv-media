@@ -8,3 +8,4 @@ YYYY-MM-DD | pillar | topic | hook | CTA#
 2026-10-20 | REEL | Suv tozalash usullari 4-qism: Membranali tozalash (seriya yakuni) | Uyingizda suv filtri bormi? | -
 2026-10-21 | 3 Suvni isrof qilmaslik | Tomchilayotgan kran va yashirin oqishlarni topish | Bitta tomchi hech narsa emas. Bir yilda esa 8 000 litrdan koʻp. | 2
 2026-10-22 | REEL | Qaynatilgan suv hamma narsadan tozami? (bug' ≠ qaynash, kimyo qoladi) | Choynakdan bug' chiqdimi? Shoshmang, suv hali qaynamagan. | -
+2026-10-28 | 4 Suv va oqova suv boshqaruvi | Unitazga nima tashlamaslik: nam salfetka, yogʻ, fatberg | Unitaz axlat qutisi emas. Londonda 130 tonnalik tiqin shundan boshlangan. | 3

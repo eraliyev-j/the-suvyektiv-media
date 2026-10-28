@@ -86,3 +86,86 @@ Aybdor vodorod sulfid (H₂S). Kislorod yetmagan joyda bakteriyalar shu gazni ch
 2021 yilda Salarga 18 ta korxona oqova tashlagani aniqlangan. 2026 yilda hovuzlar yopilib, havo filtrlanmoqda. Lekin hidni yo'qotish suvni tozalash degani emas.
 Siz yashaydigan joyda ham shunday hid bormi? Izohlarda yozing 👇
 #salar #sergeli #oqovasuv #toshkent #suvyektiv
+
+---
+
+## v3 (2026-10-28) — audit 28.10: ikkita mustaqil reel (har biri ~30–35 s)
+
+v2 (~60–65 s) bitta reelda ikki da'vo edi: (1) hid qayerdan keladi, (2) 9,5 mlrd so'mlik yechim ishladimi.
+Endi ular alohida, har biri o'z hooki bilan. Seriya emas: B'ni A'ni ko'rmagan odam ham tushunadi.
+1961 yil, 900 000 m³/kun, 7 tuman, 22 mas'ul → caption'ga ko'chdi.
+Ovoz ~2,4 so'z/s; montaj pauzalari bilan A ≈ 33–35 s, B ≈ 30–32 s.
+
+### Reel A — "Hid qayerdan?" (29.10, Payshanba)
+Da'vo: Salardagi hid H₂S, va unga zavodlarning oqovasi ham sabab bo'lgan.
+Hook turi: oddiy savol (audit bo'yicha eng yaxshi ishlagan). Uslub: "tergov / ish papkasi" (tayyor B-roll).
+
+| # | Ovoz (Javohir) | Ekran kartasi (≤6 so'z) | ~s |
+|---|---|---|---|
+| 1 | Sergelidagi chirigan tuxum hidi qayerdan keladi? | Bu hid qayerdan? | 2,5 |
+| 1b | (ovozsiz, 1-beat ustida) | Javohir · suv tadqiqotchisi | — |
+| 2 | Aybdor vodorod sulfid, H₂S. | Aybdor: H₂S | 1,7 |
+| 3 | Kislorod yetmagan joyda bakteriyalar shu gazni chiqaradi. | Kislorod yo'q → H₂S | 2,9 |
+| 4 | Burnimiz uni milliard qismdan yarim qism bo'lsa ham sezadi. | 0,5 ppb ham seziladi | 3,8 |
+| 5 | Salarda oqova suvni foydali bakteriyalar tozalaydi. | Tozalovchi: bakteriyalar | 2,5 |
+| 6 | Lekin 2021 yilda 18 ta korxona oqovasini shu yerga tashlagani aniqlandi. | 18 ta korxona (2021) | 4,0 |
+| 7 | Jumladan, teri zavodlari. | Teri zavodlari ham | 1,5 |
+| 8 | Kimyoviy moddalar foydali bakteriyalarni nobud qilgan. | Foydali bakteriyalar nobud | 2,5 |
+| 9 | Ya'ni hid faqat inshootdan emas, zavodlarning oqovasidan ham keladi. | Sabab: zavod oqovasi ham | 3,8 |
+| 10 | Sizning hududingizda ham shunday hid bormi? Izohda yozing. | Yakuniy brend kartasi | 3,3 |
+
+Loop: oxirgi gap "hid" so'zi bilan hookka qaytadi. Brend gapi ("Suvni qadrlang! …") faqat yakuniy kartada.
+
+Caption A:
+```
+Sergelidagi "chirigan tuxum" hidining aybdori: vodorod sulfid (H₂S) 🥚
+
+Salar inshooti 1961 yildan beri ishlaydi va bugun Toshkentning 7 ta tumanidan kuniga 900 ming kub metr oqova qabul qiladi. Bu suvni foydali bakteriyalar tozalaydi. Kislorod yetmasa, boshqa bakteriyalar H₂S chiqara boshlaydi.
+
+2021 yilgi tekshiruvda Salarga 18 ta korxona, jumladan teri va to'qimachilik zavodlari, oqova tashlagani aniqlangan. Kimyoviy moddalar tozalovchi bakteriyalarni nobud qilgan, 22 mas'ulga ish ochilgan.
+
+Sizning hududingizda ham shunday hid bormi? Izohda yozing.
+
+Manba: Kun.uz (2021, 2026), Gazeta.uz (2021, 2026), ATSDR (H₂S)
+Doktor H₂O · Javohir
+
+#suv #oqovasuv #salar #sergeli #toshkent
+```
+
+### Reel B — "9,5 milliard ishladimi?" (keyingi bo'sh slot)
+Da'vo: yangi filtr havoni tozaladi, lekin suv muammosi hal bo'lmagan.
+Uslub: A'dan boshqa — "oldin / keyin" (ikki ustunli taqqoslash: 2021 ↔ 2026). Fotolar o'sha manbalardan.
+
+| # | Ovoz (Javohir) | Ekran kartasi (≤6 so'z) | ~s |
+|---|---|---|---|
+| 1 | Salar hidiga 9,5 milliard so'm sarflandi. Ishladimi? | 9,5 mlrd so'm. Ishladimi? | 2,9 |
+| 2 | 2026 yil yozida hovuzlar germetik yopildi. | Hovuzlar yopildi (2026) | 2,5 |
+| 3 | Ichidagi havo sorbent, ultrabinafsha nur va ko'mirdan o'tkaziladi. | Sorbent · UB · ko'mir | 3,3 |
+| 4 | Rasmiylar chiqayotgan havoda H₂S nolga tushdi, deyishmoqda. | Rasmiy: H₂S = 0 | 2,9 |
+| 5 | Lekin bu havoni tozalaydi, suvni emas. | Havo toza ≠ suv toza | 2,5 |
+| 6 | 2021 yilda hidning bir sababi 18 ta korxonaning oqovasi bo'lgan. | 18 ta korxona (2021) | 4,0 |
+| 7 | Mening fikrimcha, asosiy yechim boshqa: | Mening fikrim: | 1,7 |
+| 8 | korxonalar oqovasini kanalizatsiyaga tashlashdan oldin o'zi tozalashi. | Korxona o'zi tozalasin | 3,3 |
+| 9 | Sizningcha, 9,5 milliard to'g'ri sarflandimi? Izohda yozing. | Yakuniy brend kartasi | 2,9 |
+
+Loop: "9,5 milliard" hookka qaytadi. 7-beat — ekspert fikri, "fikrimcha" deb ochiq belgilangan (fakt emas).
+
+Caption B:
+```
+Salar hidiga 9,5 milliard so'm sarflandi. Hid yo'qoldi, suv-chi? 💧
+
+2026 yil yozida Salar hovuzlari germetik yopildi. Ichidagi havo 11,5 tonna katalitik sorbent, ultrabinafsha nur va 2,5 tonna faollashtirilgan ko'mirdan o'tkaziladi. Texnologlar chiqayotgan havoda H₂S va ammiak nolga tushganini aytmoqda.
+
+Bu havoni tozalaydi. Oqovadagi kimyoviy moddalar esa korxonalar o'zi tozalamaguncha inshootga kelaveradi. 2021 yilda shunday 18 ta korxona aniqlangan edi.
+
+Sizningcha, pul to'g'ri sarflandimi? Izohda yozing.
+
+Manba: Kun.uz (2026-09-05), Gazeta.uz (2026-09-04, 2021-06-14)
+Doktor H₂O · Javohir
+
+#suv #oqovasuv #salar #toshkent #ekologiya
+```
+
+### Suratga olish (ikkalasi bitta seansda)
+- A: 1, 9, 10-beatlar kadrda (boshi, xulosa, CTA). B: 1, 5, 7–9 kadrda.
+- Har gapdan keyin 1–2 s pauza, bir gap = bir dubl. Matnni aynan shunday aytish shart emas: aytilgani subtitrga 1:1 bog'lanadi.

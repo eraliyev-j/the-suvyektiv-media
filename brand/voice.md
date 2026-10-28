@@ -19,6 +19,9 @@ Lokal ishlatganda nusxasini `~/.claude/instagram/voice.md` ga qo'ying.
 - **Brand line / CTA (29.10 dan):** "Suvni qadrlang! Suv haqida bilmoqchi bo'lganlaringizni izohlarda yozib qoldiring. Bizni kuzatishda davom eting, suv haqida suvyektiv fikrlaymiz!"
 - **Sample (8 stakan):** "Kuniga 8 stakan suv ichish kerak degan tavsiyani hamma eshitgan." … "Suv haqida yana nimalarni bilmoqchisiz? Izohlarda yozib qoldiring. Bizni kuzatishda davom eting, suv haqida birgalikda suvyektiv fikrlaymiz!"
 - **Pace:** ovozdagi pauzalar kesiladi; subtitr so'zlarga 1:1 bog'lanadi.
+- **Uzunlik (audit 28.10):** reel 30–40 s, maksimum 45 s (~90–100 so'z). Bitta reel = bitta ilmiy da'vo; tafsilot caption, karusel yoki ikkinchi mustaqil reelga.
+- **CTA aytilishi (28.10 dan):** ≤ 4 s, bitta mavzuga bog'liq savol ("Siz-chi …? Izohda yozing."). To'liq brend gapi yakuniy ekran kartasida.
+- **Captionda ishlatilmaydi:** "Oʻylab qarasam, … bilmas ekanmiz", "Hammamiz …" bilan boshlash, "Qiziq tomoni" (shablonga aylangan).
 
 ## Visual rules
 

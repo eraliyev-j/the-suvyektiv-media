@@ -23,20 +23,43 @@ Ovoz va brend: `brand/voice.md` (avval o'qing). Uzoq muddatli maqsad va strategi
 | Profil / akkaunt tahlili | `ig-profile`, `ig-audit` |
 | Intro / talking-head videoga effekt | `effects` (fx.py, 42 effekt, Vibha Ramprakash, MIT) |
 
+## Reel uzunligi va ilmiy chuqurlik (audit 2026-10-28)
+
+Tomoshabin 8–12 s da ketadi, reel 34 s bo'ladimi yoki 77 s, farqi yo'q. 40 s dan keyingi qism
+deyarli ko'rilmaydi. Shuning uchun:
+
+- **Bitta reel = bitta ilmiy da'vo + 1 asosiy raqam + manba ekranda.** Maqsad 30–40 s, **maksimum 45 s**.
+- Skript yozishdan oldin bitta gap bilan yoz: "Bu reel ___ ni isbotlaydi." Ikki gap chiqsa, bu ikki reel.
+- Qolgan ilmiy tafsilot tashlab yuborilmaydi, boshqa joyga ko'chadi:
+  1. **Caption**: tafsilot, ikkinchi darajali raqamlar, to'liq manba (DOI).
+  2. **Hamroh karusel** (chorshanba sloti): bosqichlar, ro'yxatlar, jadval. Ketma-ketlik bo'lsa, karusel to'g'ri format.
+  3. **Ikkinchi mustaqil reel**: boshqa da'vo, boshqa hook ("2-qism" emas, seriya yo'q).
+  4. Keyinchalik YouTube uzun video (5–10 daq).
+- Manba ekranda turishi ishonchni so'zsiz beradi: "Science, 2022" kartasi 1 s, uni o'qib berish 5 s.
+- Ovoz ~2,5 so'z/s → 40 s ≈ 90–100 so'z. Skript 110 so'zdan oshsa, montajdan oldin qisqartir.
+- Skript 45 s dan oshsa, Javohirga montajdan **oldin** ikki variant taklif qil: qisqartirish yoki bo'lish.
+
 ## Reel uchun majburiy qoidalar (ig-reel'dan)
 
 1. Hook 3 ta variantda yoziladi, eng kuchlisi tanlanadi; hook birinchi 3 soniyada tugaydi.
-2. Har bir beat ≤ 4 s; ekrandagi bitta karta ≤ 6 so'z.
-3. Safe zone: matn y 230–1440, o'ngdan 230 px bo'sh (IG tugmalari). Subtitr y≈1180.
-4. Oxiri hookka qaytadi (loop echo), keyin brend CTA.
-5. Raqamlar faqat manbadan; manba ekranda.
+   "Keling, …", "Bugun …", o'zini tanishtirish hookka kirmaydi. Maqom ("suv tadqiqotchisi") kerak bo'lsa, ekran kartasida.
+2. Har bir beat ≤ 4 s, bitta beat'da bitta raqam; ekrandagi bitta karta ≤ 6 so'z.
+3. Bir xil da'vo ikki beat'da takrorlanmaydi (2050 skriptidagi xato).
+4. Safe zone: matn y 230–1440, o'ngdan 230 px bo'sh (IG tugmalari). Subtitr y≈1180.
+5. Oxiri hookka qaytadi (loop echo), keyin CTA.
+6. **CTA: aytiladigan qismi ≤ 4 s, bitta so'rov** (mavzuga bog'langan savol, masalan "Siz kuniga necha stakan ichasiz? Izohda yozing."). To'liq brend gapi ("Suvni qadrlang! … suvyektiv fikrlaymiz!") ekranda yakuniy kartada turadi. Javohir boshqacha aytsa, uning so'zi.
+7. Raqamlar faqat manbadan; manba ekranda.
+8. `hookscore.py` o'zbek tilida ishonchsiz (eng yaxshi real hookni eng past baholagan). Hook tanlash: aniq raqam yoki tomoshabinning kundalik holati + savol, ≤ 12 so'z.
 
 ## Caption qoidalari (ig-caption'dan)
 
-- Birinchi 125 belgi — asosiy fikr (ko'rinadigan qism), qidiruv so'zlari matn ichida.
-- Bitta so'rov (CTA) — bizda: izohda savol yozish.
-- **Hashtag ≤ 5** (Instagram 2025-12-18 dan cheklagan). Captionda havola yo'q.
+- Birinchi 125 belgi: asosiy fikr **raqam yoki nom bilan** (masalan "Londonda 130 tonnalik tiqin…"), "suv" so'zi shu qismda. Karusel bo'lsa, uning hooki birinchi qatorda.
+- Bitta so'rov (CTA): izohda savol yozish.
+- **Hashtag ≤ 5, o'zbekcha qidiruv so'zlari** (`#suv #suvtozalash #suvtejash #bilasizmi #uzbekistan`). `#subscribe`, `#water`, `#health` kabi inglizchasi yo'q. Captionda havola yo'q.
 - Em-dash (—), "AI so'zlari" va ko'rinmas belgilarni olib tashlash (ig-human).
+- **Shablon iboralar taqiqlangan** (audit 28.10, 6 captiondan 4 tasida takrorlangan): "Oʻylab qarasam, … bilmas ekanmiz", "Hammamiz …" bilan boshlash, "Qiziq tomoni". Har caption boshqacha ochiladi.
+- Oxirida imzo: `Doktor H₂O · Javohir`.
+- Tekshirish: `python3 .claude/skills/ig-caption/caption.py caption.txt --keywords suv` (hashtag, birinchi qator uzunligi). "ONE ASK" ogohlantirishiga e'tibor berma: o'zbekcha CTA'ni tanimaydi.
 
 ## O'zbek tiliga moslash
 

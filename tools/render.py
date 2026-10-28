@@ -86,7 +86,7 @@ for i, s in enumerate(slides, 1):
     if k == "steps":
         parts.append('<ol class="steps">' + "".join(f'<li><span class="n">{j}</span><span>{e(t)}</span></li>' for j, t in enumerate(s["steps"], 1)) + "</ol>")
         if s.get("note"): parts.append(f'<div class="note">{e(s["note"])}</div>')
-    if k == "hook": parts.append('<div class="swipe">Varaqlang →</div>')
+    if k == "hook": parts.append(f'<div class="swipe">{e(os.environ.get("SWIPE", "Varaqlang →"))}</div>')
     if k == "cta": parts.append(f'<div class="handle">{e(HANDLE if "HANDLE" in os.environ else s["handle"])}</div>')
     ripple = RIPPLE if s["theme"] == "dark" else ""
     doc = f"""<!doctype html><html><head><meta charset="utf-8"><style>{fonts}{CSS}{THEME_CSS}</style></head>

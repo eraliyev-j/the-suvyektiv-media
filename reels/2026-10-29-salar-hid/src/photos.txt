@@ -1,0 +1,8 @@
+# Reel A B-roll photos (not stored in the public repo; download into $PH, default /tmp/claude-0/sal/ph)
+aerial.jpg  https://storage.kun.uz/source/11/ww0OMYxERuAHJiTkvXJM-iIVtfXfIbVD.jpg   Kun.uz, 16.05.2026 "Sergelidagi qo'lansa hid"
+sludge.jpg  https://storage.kun.uz/source/11/G3RZV3u9736HEZb9P9WNmN3By6SEcLRq.jpg   Kun.uz, 16.05.2026
+fields.jpg  https://storage.kun.uz/source/11/EZKMj1LIfBvPHQnFcXvXLTw_njVE1B6t.jpg   Kun.uz, 16.05.2026
+map.jpg     https://storage.kun.uz/source/11/4X1uahnDJTDTG_DCW-P3ErHPBTMec4BG.jpg   Kun.uz, 16.05.2026
+clar.jpg    https://cdn.uza.uz/2026/09/05/15/19/L9BkE9NHrxiAD49I5qjA2TxEOWXMPc91.jpg  UzA, 05.09.2026 "Salar ... noxush hid bartaraf etildi"
+sample.jpg  https://gocdn.daryo.uz/large/2024/02/65c88abed4961.webp (convert to jpg)  Daryo, 11.02.2024 (illustrative: ecology ministry sewage sampling)
+dirty.jpg   https://yuz.uz/file/news/e47c7cdf900ffb4f6445c770b6b3840a.jpg          Yuz.uz

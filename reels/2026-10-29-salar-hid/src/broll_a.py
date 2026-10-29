@@ -7,7 +7,7 @@ import sys, os, math, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import case as C
 from case import fn, ease, ph, back, card, stamp, text, marker, molecule, WHITE, SKY, SKYD, NAVY, WARN, INK2, SULF
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 
 C.R = os.environ.get("PH", "/tmp/claude-0/sal") + "/"
 W, H, FPS = 1080, 1920, 30
@@ -95,11 +95,7 @@ def b05_bakteriya(im, d, t):      # "Salarda oqova suvni foydali bakteriyalar to
     text(d, 80, 236, "Salarda suvni", fn("Black", 76), NAVY, ph(t, 0.1))
     f = fn("Black", 76); marker(d, 80, 324, "bakteriyalar tozalaydi", f, ph(t, 0.7, 0.5))
     text(d, 80, 324, "bakteriyalar tozalaydi", f, NAVY, ph(t, 0.3))
-    card(im, "clar", 540, 760, 940, 1.8, ph(t, 0.0, 0.6), t, "UzA")
-    a = ph(t, 1.0)                                             # friendly bacteria dots over the photo
-    for k in range(9):
-        x = 200 + (k * 97) % 680; y = 580 + (k * 61) % 320 + 8 * math.sin(t * 2 + k)
-        d.ellipse([x - 13, y - 13, x + 13, y + 13], fill=SKY + (int(230 * a),), outline=WHITE + (int(255 * a),), width=3)
+    card(im, "clar", 540, 760, 940, 1.8, ph(t, 0.0, 0.6), t, "UzA", zoom=0.14)   # real photo only, slow push-in
     stamp(im, "BIOLOGIK TOZALASH", 700, 1050, -5, ph(t, 1.6, 0.35), col=SKYD, size=44)
     deco(im, "aerial", "Kun.uz", t, -2.5, 700, 1520)
 
@@ -130,15 +126,11 @@ def b08_nobud(im, d, t):          # "Kimyoviy moddalar foydali bakteriyalarni no
     text(d, 80, 236, "Kimyoviy moddalar", fn("Black", 76), NAVY, ph(t, 0.1))
     f = fn("Black", 76); marker(d, 80, 324, "bakteriyalarni o'ldirgan", f, ph(t, 0.8, 0.5), (255, 190, 175))
     text(d, 80, 324, "bakteriyalarni o'ldirgan", f, NAVY, ph(t, 0.3))
-    card(im, "dirty", 540, 740, 920, -1.5, ph(t, 0.0, 0.6), t, "Yuz.uz")
-    a = ph(t, 0.6); u = ph(t, 1.6, 1.2)                         # sky dots turn grey and get crossed out
-    for k in range(9):
-        x = 200 + (k * 97) % 680; y = 580 + (k * 61) % 320
-        col = tuple(int(SKY[i] + (GREY[i] - SKY[i]) * u) for i in range(3))
-        d.ellipse([x - 13, y - 13, x + 13, y + 13], fill=col + (int(230 * a),), outline=WHITE + (int(255 * a),), width=3)
-        if u > 0.5:
-            c = WARN + (int(255 * (u - 0.5) * 2),)
-            d.line([(x - 15, y - 15), (x + 15, y + 15)], fill=c, width=5); d.line([(x - 15, y + 15), (x + 15, y - 15)], fill=c, width=5)
+    u = ph(t, 1.4, 1.6)                                         # the real photo drains to grey: "dead" biology
+    col = C.photo("dirty")
+    C._ph["dirty_mix"] = Image.blend(col, ImageOps.grayscale(col).convert("RGB"), 0.85 * u)
+    card(im, "dirty_mix", 540, 740, 920, -1.5, ph(t, 0.0, 0.6), t, "Yuz.uz", zoom=0.10)
+    stamp(im, "BIOLOGIYA TO'XTADI", 680, 1050, -5, ph(t, 2.4, 0.35), size=46)
     src(d, "Manba: Kun.uz (24.06.2021, 16.05.2026)", t, 1050)
     deco(im, "sample", "Daryo (illyustrativ)", t, 3, 700, 1520)
 

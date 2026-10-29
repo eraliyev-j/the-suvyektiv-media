@@ -9,6 +9,7 @@ usage: python3 broll_b.py OUTDIR            -> b01..b09 .mp4 + ov01..ov08 .mov (
 import sys, os, math, subprocess
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 
+FOTO = "Foto: "
 PH = os.environ.get("PH", "/tmp/claude-0/salB/ph") + "/"
 W, H, FPS = 1080, 1920, 30
 F = "/usr/share/fonts/opentype/inter/Inter-{}.otf"
@@ -59,7 +60,7 @@ def pane(im, img, x, y, a, credit="", r=28):
     t = img.convert("RGBA"); t.putalpha(m.point(lambda v: int(v * a)))
     im.alpha_composite(t, (int(x), yy))
     if credit:
-        d = ImageDraw.Draw(im); f = fn("SemiBold", 22); s = "Foto: " + credit
+        d = ImageDraw.Draw(im); f = fn("SemiBold", 22); s = FOTO + credit
         tw = d.textlength(s, font=f)
         d.rounded_rectangle([x + 18, yy + h - 52, x + 42 + tw, yy + h - 16], 18, fill=(11, 31, 51, int(170 * a)))
         d.text((x + 30, yy + h - 47), s, font=f, fill=rgba(WHITE, a))

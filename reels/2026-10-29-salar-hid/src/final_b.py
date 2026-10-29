@@ -15,7 +15,7 @@ TCOL = [NAVY2, WARN, SKYD]
 def tabs(d, act):
     f = fn("Bold", 28); x = 80
     for i, s in enumerate(TABS):
-        tw = d.textlength(s, font=f) + 44
+        s = tr(s); tw = d.textlength(s, font=f) + 44
         if i in act:
             d.rounded_rectangle([x, 112, x + tw, 166], 27, fill=TCOL[i] + (255,))
             d.text((x + 22, 139), s, font=f, fill=WHITE + (255,), anchor="lm")
@@ -24,6 +24,38 @@ def tabs(d, act):
             d.text((x + 22, 139), s, font=f, fill=(150, 170, 190, 255), anchor="lm")
         x += tw + 14
     d.text((1000, 139), "SALAR", font=fn("Black", 28), fill=NAVY + (200,), anchor="rm")
+
+# ---------- English version (LinkedIn): same picture/voice, on-screen text + captions in English ----------
+EN = "--en" in sys.argv
+TR = {"HAVO": "AIR", "SUV": "WATER", "YECHIM": "SOLUTION",
+ "Salardagi hidni yo'qotish uchun": "To remove the Salar smell", "mlrd so'm": "bn soums", "sarflangan": "spent",
+ "Shu yil yozda": "This summer", "Hovuzlar": "Ponds", "germetik yopildi": "sealed airtight", "H₂S ichkarida qoladi": "H₂S stays inside",
+ "Ichidagi havo": "The air inside", "filtrdan o'tkazildi": "is filtered", "gazni yutadi": "absorbs gas", "UB nur": "UV light",
+ "parchalaydi": "breaks it down", "Ko'mir": "Carbon", "qolganini ushlaydi": "traps the rest", "toza havo ↓": "clean air ↓",
+ "MUTASADDILAR AYTISHICHA": "OFFICIALS SAY", "vodorod sulfid miqdori": "hydrogen sulfide level",
+ "Muammo hal bo'lmadi": "Problem not solved", "tozalanadi": "cleaned", "tozalanmaydi": "not cleaned",
+ "Suv dalaga yaroqli bo'lishi uchun": "For water fit for farmland", "Har bir korxona": "Every company",
+ "oqovasini tozalasin": "treats its wastewater", "korxona": "company", "o'z": "own", "tozalash": "treatment", "dala": "farm",
+ "keyin Salarga, undan dalaga": "then to Salar, then to farms", "Har bir zavod uchun": "For every factory",
+ "me'yor belgilangan": "limits are set", "ME'YOR": "LIMIT", "kimyoviy moddalar": "chemicals",
+ "va ular shu me'yorga amal qilishi kerak": "and they must meet those limits",
+ "Menimcha,": "In my view,", "mana shunda": "this is how", "muammo hal bo'ladi": "it gets solved",
+ "FIKR · fakt emas": "OPINION · not a fact", "Javohir · suv va oqova suv tadqiqotchisi": "Javohir · water & wastewater researcher",
+ "Suvni qadrlang!": "Value water!", "Suv haqida bilmoqchi bo'lganlaringizni": "What would you like to know about water?",
+ "izohlarda yozib qoldiring ↓": "Tell us in the comments ↓", "Bizni kuzatishda davom eting,": "Keep following us,",
+ "suv haqida suvyektiv": "let's think about water,", "fikrlaymiz!": "suvyektiv style!",
+ "Toshkent sh. hokimligi / Gazeta.uz": "Tashkent city hall / Gazeta.uz", "Toshkent sh. hokimligi / Kun.uz": "Tashkent city hall / Kun.uz",
+ "Daryo (illyustrativ)": "Daryo (illustrative)"}
+def tr(s):
+    if not EN: return s
+    s = TR.get(s, s)
+    return re.sub(r"(\d),(\d)", r"\1.\2", s)
+_text, _marker, _pill, _pane = text, marker, pill, pane
+def text(d, x, y, s, *a, **k): return _text(d, x, y, tr(s), *a, **k)
+def marker(d, x, y, s, *a, **k): return _marker(d, x, y, tr(s), *a, **k)
+def pill(d, x, y, s, *a, **k): return _pill(d, x, y, tr(s), *a, **k)
+def pane(im, img, x, y, a, credit="", *r, **k): return _pane(im, img, x, y, a, tr(credit), *r, **k)
+if EN: B.FOTO = "Photo: "
 
 # ---------- scenes (local t) ----------
 def s_hook(im, d, t):             # 0.00 "Salardagi hidni yo'qotish uchun jami 9,5 milliard so'm sarflanganligi aytilmoqda."
@@ -100,7 +132,7 @@ def s_havo_suv(im, d, t):         # 15.30 "Lekin hali muammo hal bo'lmadi. Bu us
         if not ok: pic = Image.blend(pic, pic.convert("L").convert("RGB"), 0.35)
         pane(im, pic, x, 400, a, cr)
         f = fn("Black", 76); text(d, x, 860, lab, f, NAVY, a)
-        tick(d, x + d.textlength(lab, font=f) + 60, 905, 40, SKYD if ok else WARN, ph(t, t0 + 0.3, 0.3), ok)
+        tick(d, x + d.textlength(tr(lab), font=f) + 60, 905, 40, SKYD if ok else WARN, ph(t, t0 + 0.3, 0.3), ok)
         text(d, x, 955, "tozalanadi" if ok else "tozalanmaydi", fn("Bold", 38), col, ph(t, t0 + 0.35))
     a = ph(t, 4.3, 0.3)
     if a > 0:
@@ -213,7 +245,18 @@ CAPS = [(0.000, 1.720, "Salardagi hidni yo'qotish uchun"), (1.720, 3.080, "jami 
         (32.000, 34.260, "oqova chiqarishda me'yor belgilangan."), (34.900, 36.200, "Va ular mana shu me'yorga"),
         (36.200, 37.680, "amal qilishlari kerak bo'ladi."), (37.680, 38.900, "Menimcha, mana shunda"), (38.900, 40.380, "muammoni hal qilsa bo'ladi."),
         (40.380, 41.940, "Bizni kuzatishda davom eting,"), (41.940, 43.760, "suv haqida suvyektiv fikrlaymiz!")]
-KEY = re.compile(r"\d|milliard|germetik|sorbent|ultrabinafsha|ko'mir|vodorod|sulfid|nolga|havoni|suvni|qishloq|xo'jaligi|korxona|tozala|me'yor|kimyoviy|suvyektiv", re.I)
+if EN:
+    CAPS = [(0.00, 4.78, "About 9.5 billion soums were reportedly spent to remove the smell at Salar."),
+            (4.78, 11.22, "This summer the treatment ponds were sealed, and the air inside was passed through sorbent, UV light and carbon."),
+            (11.82, 14.98, "Officials say hydrogen sulfide levels dropped to zero."),
+            (15.54, 17.30, "But the problem isn't solved yet."),
+            (17.30, 20.10, "This unit only cleans the air, not the water."),
+            (20.58, 28.12, "Before the water can safely go to farms, every company must treat its own wastewater and only then send it here."),
+            (28.62, 34.26, "Every factory has limits for chemicals in its wastewater discharge."),
+            (34.90, 37.68, "And they have to meet those limits."),
+            (37.68, 40.38, "In my view, that's how the problem can be solved."),
+            (40.38, 43.76, "Keep following us, and let's think about water, suvyektiv style!")]
+KEY = re.compile(r"\d|billion|sealed|sorbent|UV|carbon|hydrogen|sulfide|zero|air|water|farms|treat|limits|chemicals|milliard|germetik|sorbent|ultrabinafsha|ko'mir|vodorod|sulfid|nolga|havoni|suvni|qishloq|xo'jaligi|korxona|tozala|me'yor|kimyoviy|suvyektiv", re.I)
 CF = fn("Bold", 64)
 EV = []
 for a, b, s in CAPS:                                   # split long lines (> 24 chars) proportionally, as in earlier reels
@@ -267,5 +310,6 @@ def build(voice, music, out):
     v.stdin.close(); v.wait()
 
 if __name__ == "__main__":
-    if sys.argv[1] == "still": frame(float(sys.argv[2])).save(sys.argv[3])
-    else: build(*sys.argv[1:4])
+    argv = [x for x in sys.argv if x != "--en"]
+    if argv[1] == "still": frame(float(argv[2])).save(argv[3])
+    else: build(*argv[1:4])

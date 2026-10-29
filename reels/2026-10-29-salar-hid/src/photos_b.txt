@@ -1,0 +1,5 @@
+# Reel B B-roll photos (credits shown on screen)
+filter.jpg   https://www.gazeta.uz/media/img/2026/09/mdslq5n6q2e17IDl2sv17885270344089_b.webp  Gazeta.uz 04.09.2026 (Toshkent sh. hokimligi video kadri), pastki yozuv kesilgan
+plant26.jpg  https://storage.kun.uz/source/1/FFunEi2IzpaS5GJQbA3Vvvlo4jUwbdIW.webp  Kun.uz 05.09.2026 (Toshkent sh. hokimligi video kadri), pastki yozuv kesilgan
+dirty2.jpg   https://yuz.uz/file/news/e47c7cdf900ffb4f6445c770b6b3840a.jpg  Yuz.uz, watermark kesilgan
+sample.jpg   https://gocdn.daryo.uz/large/2024/02/65c88abed4961.webp  Daryo (illyustrativ)

@@ -61,3 +61,37 @@ if __name__ == "__main__":
     for x in sentences(): print(x)
     print(len(chunks()), "chunks")
     for c in chunks()[:12]: print(c)
+
+# English subtitles (LinkedIn version), same order as SENT
+EN = [
+    "People living near the Salar wastewater plant in Sergeli know this smell well.",
+    "The smell of rotten eggs.",
+    "So where does it come from?",
+    "The main culprit is hydrogen sulfide gas.",
+    "At Salar, bacteria clean the wastewater, so they constantly need oxygen.",
+    "Where oxygen runs short, other bacteria breathe sulfate and release hydrogen sulfide gas.",
+    "Our nose can detect it even at half a part per billion.",
+    "In 2021, 18 enterprises were found dumping wastewater into this very plant.",
+    "Tanneries and textile factories were among them.",
+    "Chemicals completely killed the bacteria that clean the water,",
+    "and with fewer of them, the wastewater rotted and the smell grew stronger.",
+    "So the smell came not only from the plant, but also from factory wastewater.",
+    "In the next video: the measures taken to get rid of this smell.",
+    "Keep following us for more about water.",
+]
+
+def chunks_en(maxc=26, maxw=5):
+    out = []
+    for (a, b, _, _), s in zip(sentences(), EN):
+        words = s.split(); L = sum(len(w) + 1 for w in words); t = a; groups, cur = [], []
+        for w in words:
+            if cur and (len(" ".join(cur + [w])) > maxc or len(cur) >= maxw or cur[-1][-1] in ",:"):
+                groups.append(cur); cur = []
+            cur.append(w)
+        groups.append(cur)
+        for g in groups:
+            dur = (b - a) * sum(len(w) + 1 for w in g) / L
+            out.append([round(t, 3), round(t + dur, 3), " ".join(g)]); t += dur
+    for i in range(len(out) - 1):
+        if out[i + 1][0] - out[i][1] < 0.6: out[i][1] = out[i + 1][0]
+    return out

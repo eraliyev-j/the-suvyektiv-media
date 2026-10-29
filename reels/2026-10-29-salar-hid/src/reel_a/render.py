@@ -31,7 +31,8 @@ for a, b, s, sc in SENT:
     if not ORDER or ORDER[-1][0] != sc: ORDER.append([sc, a])
 ORDER[0][1] = 0.0
 SCENES = [(sc, a, (ORDER[i + 1][1] if i + 1 < len(ORDER) else TOTAL)) for i, (sc, a) in enumerate(ORDER)]
-CH = TL.chunks()
+EN = os.environ.get("SUBS") == "en"
+CH = TL.chunks_en() if EN else TL.chunks()
 
 # ---------- paper + helpers ----------
 def make_paper():
@@ -287,6 +288,7 @@ def cta(im, d, t):         # "Bizni kuzatishda davom eting, suv haqida suvyektiv
 FUN = {k: globals()[k] for k in ["hook", "h2s", "bakteriya", "jarayon", "ppb", "korxona", "teri", "nobud", "chirish", "xulosa", "keyingi", "cta"]}
 
 # ---------- subtitles ----------
+KEY_EN = re.compile(r"\d|H₂S|hydrogen|sulfide|oxygen|bacteria|sulfate|enterprises|tanneries|textile|factor|billion|^salar|rotten|eggs|smell", re.I)
 KEY = re.compile(r"\d|H₂S|^hid|vodorod|sulfid|kislorod|bakteriya|sulfat|korxona|^teri|to'qimachilik|zavod|milliard|^salar|chirigan|tuxum|suvyektiv|nobud|chirib|yarim", re.I)
 def subs(im, T):
     cur = [c for c in CH if c[0] <= T < c[1]]
@@ -297,7 +299,7 @@ def subs(im, T):
     widths = [d.textlength(w, font=f) for w in words]
     x = (W - (sum(widths) + sp * (len(words) - 1))) / 2
     for w, ww in zip(words, widths):
-        col = SKY if KEY.search(w.strip(",.?:!«»")) else WHITE
+        col = SKY if (KEY_EN if EN else KEY).search(w.strip(",.?:!«»")) else WHITE
         d.text((x, 100), w, font=f, fill=col + (255,), anchor="lm", stroke_width=7, stroke_fill=NAVY + (255,))
         x += ww + sp
     shadow = lay.getchannel("A").filter(ImageFilter.GaussianBlur(10)).point(lambda v: int(v * 0.35))
@@ -324,7 +326,7 @@ def part(args):
 
 def render(out, nproc=8):
     n = int(round(TOTAL * FPS)); step = math.ceil(n / nproc)
-    jobs = [(i, min(n, i + step), f"/home/claude/salarA/part{j:02d}.mp4") for j, i in enumerate(range(0, n, step))]
+    jobs = [(i, min(n, i + step), f"/home/claude/salarA/part{"en" if EN else ""}{j:02d}.mp4") for j, i in enumerate(range(0, n, step))]
     with Pool(nproc) as pool: parts = pool.map(part, jobs)
     open("/home/claude/salarA/parts.txt", "w").write("".join(f"file '{p}'\n" for p in parts))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", "/home/claude/salarA/parts.txt", "-c", "copy", out], check=True)

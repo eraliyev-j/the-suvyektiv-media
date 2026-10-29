@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw
 C.R = os.environ.get("PH", "/tmp/claude-0/sal") + "/"
 W, H, FPS = 1080, 1920, 30
 GREY = (150, 160, 170)
+SHOW_SRC = False
 
 def hud(d, k, t):
     g = min(1, (k + min(t / 4, 1)) / len(B))
@@ -26,6 +27,7 @@ def deco(im, name, credit, t, rot=-3, w=820, cy=1500):
     card(im, name, 540, cy, w, rot, ph(t, 0.9, 0.6), t, credit, zoom=0.05)
 
 def src(d, s, t, y=1010):
+    if not SHOW_SRC and s.startswith("Manba"): return   # sources live in the caption (Javohir, 29.10)
     text(d, 80, y, s, fn("Medium", 24), INK2, ph(t, 1.2))
 
 # ---------- beats ----------
@@ -208,6 +210,8 @@ if __name__ == "__main__":
     C.PAPER_IM = C.make_paper()
     if len(sys.argv) > 2 and sys.argv[2] == "still":
         frame(int(sys.argv[3]), float(sys.argv[4])).convert("RGB").save(sys.argv[5]); sys.exit()
+    only = [int(x) for x in os.environ.get("ONLY", "").split(",") if x]
     for k, (fn_, dur) in enumerate(B):
+        if only and k not in only: continue
         render(k, f"{out}/{fn_.__name__}.mp4"); print(fn_.__name__, dur)
-    lower_third(f"{out}/b01_lower_third.mov")
+    if not only: lower_third(f"{out}/b01_lower_third.mov")

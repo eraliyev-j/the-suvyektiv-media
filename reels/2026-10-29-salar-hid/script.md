@@ -169,3 +169,24 @@ Doktor H₂O · Javohir
 ### Suratga olish (ikkalasi bitta seansda)
 - A: 1, 9, 10-beatlar kadrda (boshi, xulosa, CTA). B: 1, 5, 7–9 kadrda.
 - Har gapdan keyin 1–2 s pauza, bir gap = bir dubl. Matnni aynan shunday aytish shart emas: aytilgani subtitrga 1:1 bog'lanadi.
+
+---
+
+## Yakuniy (2026-10-29) — Reel A, Javohirning ovozi (o'zgartirishsiz)
+Format: to'liq B-roll + ovoz (A-roll yo'q), "tergov / ish papkasi" uslubi. 62,4 s (ovoz 59,2 s pauzalar qirqilgan + 3 s yakuniy karta). Muqovani Javohir o'zi tayyorlaydi va yuklaydi.
+Kod: `src/reel_a/` (cut.py → timeline.py → render.py scenes, music.py). Fotolar: src/photos.txt, PH papkasiga.
+
+Aytilgan matn (subtitr bilan 1:1):
+1. Sergelida Salar oqova tozalash inshooti yaqinida yashovchilar bu hidni yaxshi bilishadi. Chirigan tuxum hidi.
+2. Qiziq, bu hid qayerdan keladi?
+3. Bunga aybdor yagona vodorod sulfid gazi hisoblanadi.
+4. Salarda oqova suvni bakteriyalar tozalaganligi uchun ularga doimiy kislorod kerak bo'ladi.
+5. Kislorod yetmagan joyda boshqa bakteriyalar sulfat bilan nafas oladi va vodorod sulfid gazini chiqaradi.
+6. Burnimiz uni hattoki milliard qismdan yarim qism bo'lsa ham sezadi.
+7. 2021 yilda 18 ta korxona oqova suvni mana shu tozalash inshootiga tashlaganligi aniqlandi.
+8. Teri va to'qimachilik zavodlari shular jumlasidandir.
+9. Kimyoviy moddalar suvni tozalaydigan bakteriyalarni batamom nobud qilgan va tozalovchi bakteriyalar kamayganligi uchun oqova suv chirib, hidni kuchaytirgan.
+10. Ya'ni hid faqatgina inshootdan emas, balki zavodlarning oqovasidan ham kelgan.
+11. Keyingi videoda bu hidni yo'qotish uchun qilingan chora-tadbirlar haqida batafsil ma'lumot berib o'tiladi.
+12. Bizni kuzatishda davom eting, suv haqida suvyektiv fikrlaymiz.
+Eslatma: "yagona", "batamom" va "Keyingi videoda" haqida ogohlantirildi, Javohir o'z holicha qoldirdi. Caption'da "asosiy aybdori" deyilgan.

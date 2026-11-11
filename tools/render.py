@@ -76,6 +76,51 @@ def _fill(y0, amp, lam, ph, color, op, tilt=0.0):
 GRAIN = ('<filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/>'
          '<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0"/></filter>'
          '<rect width="1080" height="1350" filter="url(#g)" opacity=".06"/>')
+
+import random
+def _drops(theme, idx):
+    rnd = random.Random(1000 + idx * 7)
+    edge = "#1F3A80" if theme == "dark" else "#1F6FB2"
+    defs = ('<defs>'
+      f'<radialGradient id="db" cx="62%" cy="70%" r="65%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/>'
+      f'<stop offset=".55" stop-color="#FFFFFF" stop-opacity=".10"/><stop offset=".85" stop-color="{edge}" stop-opacity=".18"/>'
+      f'<stop offset="1" stop-color="{edge}" stop-opacity=".42"/></radialGradient>'
+      '<filter id="ds" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>'
+      '</defs>')
+    zones = [  # (x0,x1,y0,y1,count,rmin,rmax)
+      (640, 1070, 10, 235, 7, 10, 34),
+      (990, 1075, 235, 1190, 8, 8, 26),
+      (0, 85, 160, 1250, 5, 6, 20),
+      (30, 1060, 1300, 1345, 6, 5, 14),
+      (0, 1080, 0, 1350, 26, 2.5, 6),   # fine mist everywhere
+    ]
+    out = []
+    placed = []
+    for x0, x1, y0, y1, cnt, rmin, rmax in zones:
+        tries = 0
+        while cnt > 0 and tries < 400:
+            tries += 1
+            r = rmin + (rmax - rmin) * rnd.random() ** 1.8
+            x, y = rnd.uniform(x0, x1), rnd.uniform(y0, y1)
+            if any((x-a)**2 + (y-b)**2 < (r + c + 6)**2 for a, b, c in placed):
+                continue
+            if r > 6 and ((860 - r < x < 1080 and 30 - r < y < 160 + r) or (x < 460 + r and y < 150 + r)):
+                continue  # keep the brand and slide counter clear
+            placed.append((x, y, r)); cnt -= 1
+            ry = r * (1.06 + 0.1 * rnd.random())
+            sh_op = .22 if theme == "dark" else .14
+            if r > 18 and rnd.random() < .45:   # sliding drop with a thin trail
+                tl = r * rnd.uniform(2.5, 5)
+                out.append(f'<path d="M{x:.1f},{y-ry:.1f} C{x-r*.25:.1f},{y-ry-tl*.5:.1f} {x+r*.2:.1f},{y-ry-tl*.8:.1f} {x:.1f},{y-ry-tl:.1f}" '
+                           f'stroke="#FFFFFF" stroke-opacity=".35" stroke-width="{r*.28:.1f}" stroke-linecap="round" fill="none"/>')
+            out.append(f'<ellipse cx="{x+r*.18:.1f}" cy="{y+r*.28:.1f}" rx="{r:.1f}" ry="{ry:.1f}" fill="{edge}" opacity="{sh_op}" filter="url(#ds)"/>')
+            out.append(f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{r:.1f}" ry="{ry:.1f}" fill="url(#db)"/>')
+            out.append(f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{r:.1f}" ry="{ry:.1f}" fill="none" stroke="{edge}" stroke-opacity=".22" stroke-width="{max(1,r*.06):.1f}"/>')
+            out.append(f'<ellipse cx="{x-r*.35:.1f}" cy="{y-ry*.42:.1f}" rx="{r*.28:.1f}" ry="{r*.16:.1f}" fill="#FFFFFF" opacity=".9" transform="rotate(-35 {x-r*.35:.1f} {y-ry*.42:.1f})"/>')
+            if r > 9:
+                out.append(f'<ellipse cx="{x+r*.38:.1f}" cy="{y+ry*.5:.1f}" rx="{r*.12:.1f}" ry="{r*.07:.1f}" fill="#FFFFFF" opacity=".6"/>')
+    return defs + "".join(out)
+
 def premium_bg(theme, idx):
     ph = idx*0.9
     if theme == "dark":
@@ -85,7 +130,7 @@ def premium_bg(theme, idx):
           '<linearGradient id="sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".0"/>'
           '<stop offset="1" stop-color="#1F3A80" stop-opacity=".16"/></linearGradient></defs>'
           '<rect width="1080" height="1350" fill="url(#gl)"/>'
-          + _silk(16, 860, 22, 46, 1500, ph, 0.13, "#FFFFFF", .10, .55, 2, tilt=-0.06)
+          + _silk(20, 820, 21, 50, 1500, ph, 0.13, "#FFFFFF", .15, .80, 2.4, tilt=-0.06)
           + _fill(1150, 34, 1300, ph+1.0, "#FFFFFF", .16, tilt=-0.05)
           + _fill(1215, 28, 900, ph+2.4, "#FFFFFF", .14)
           + '<rect y="900" width="1080" height="450" fill="url(#sh)"/>'
@@ -96,11 +141,11 @@ def premium_bg(theme, idx):
           '<defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7FCFF"/>'
           '<stop offset="1" stop-color="#E1F3FE"/></linearGradient></defs>'
           '<rect width="1080" height="1350" fill="url(#gl)"/>'
-          + _silk(14, -60, 18, 40, 1400, ph, 0.12, "#1F6FB2", .03, .10, 1.6, tilt=0.11)
+          + _silk(18, -70, 17, 44, 1400, ph, 0.12, "#1F6FB2", .05, .20, 1.8, tilt=0.11)
           + _fill(1225, 22, 1200, ph+0.6, "#BFE6FD", .45, tilt=-0.03)
           + _fill(1262, 18, 800, ph+2.0, "#9ED7FA", .30)
         )
-    return f'<svg class="bg" width="1080" height="1350" viewBox="0 0 1080 1350">{body}{GRAIN}</svg>'
+    return f'<svg class="bg" width="1080" height="1350" viewBox="0 0 1080 1350">{body}{_drops(theme, idx)}{GRAIN}</svg>'
 
 e = html.escape
 # Branding (2026-10-21: Instagram and YouTube share one look — Doktor H2O / @suvyektiv, sky theme).

@@ -51,10 +51,56 @@ h1{font-family:Manrope,ManropeX,sans-serif;font-weight:800;font-size:76px;line-h
 .note{margin-top:20px;padding:26px 32px;border-left:6px solid #2F80ED;background:#EAF2FD;font-size:34px;line-height:1.35}
 .foot{display:flex;justify-content:space-between;align-items:center;font-size:26px;padding-top:32px;border-top:2px solid currentColor;opacity:.6}
 .dark .foot{opacity:.55}
-.ripple{position:absolute;right:-330px;bottom:-330px;color:#2F80ED;opacity:.7;pointer-events:none}.top,.main,.foot{position:relative;z-index:1}
+.ripple{position:absolute;right:-330px;bottom:-330px;color:#2F80ED;opacity:.7;pointer-events:none}.bg{position:absolute;inset:0;pointer-events:none}.top,.main,.foot{position:relative;z-index:1}
 .handle{font-family:Manrope,ManropeX;font-weight:800;font-size:46px;color:#6FA8F5;margin-top:56px}
 .swipe{margin-top:64px;font-size:30px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
 """
+
+
+import math
+def _wave(y0, amp, lam, ph, w=1080, step=12, tilt=0.0):
+    pts=[]
+    for x in range(-40, w+41, step):
+        y=y0+amp*math.sin(2*math.pi*x/lam+ph)+0.35*amp*math.sin(2*math.pi*x/(lam*0.47)+ph*1.7)+tilt*x
+        pts.append(f"{x},{y:.1f}")
+    return "M"+" L".join(pts)
+def _silk(n, y0, gap, amp, lam, ph0, dph, color, op0, op1, width=2, tilt=0.0):
+    out=[]
+    for j in range(n):
+        t=j/max(n-1,1)
+        op=op0+(op1-op0)*t
+        out.append(f'<path d="{_wave(y0+j*gap, amp*(1+0.6*t), lam, ph0+j*dph, tilt=tilt)}" fill="none" stroke="{color}" stroke-width="{width}" opacity="{op:.3f}"/>')
+    return "".join(out)
+def _fill(y0, amp, lam, ph, color, op, tilt=0.0):
+    return f'<path d="{_wave(y0, amp, lam, ph, tilt=tilt)} L1120,1400 L-40,1400 Z" fill="{color}" opacity="{op}"/>'
+GRAIN = ('<filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/>'
+         '<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0"/></filter>'
+         '<rect width="1080" height="1350" filter="url(#g)" opacity=".06"/>')
+def premium_bg(theme, idx):
+    ph = idx*0.9
+    if theme == "dark":
+        body = (
+          '<defs><radialGradient id="gl" cx="18%" cy="8%" r="90%"><stop offset="0" stop-color="#C4ECFF"/>'
+          '<stop offset=".45" stop-color="#84D2FD"/><stop offset="1" stop-color="#57B7F2"/></radialGradient>'
+          '<linearGradient id="sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".0"/>'
+          '<stop offset="1" stop-color="#1F3A80" stop-opacity=".16"/></linearGradient></defs>'
+          '<rect width="1080" height="1350" fill="url(#gl)"/>'
+          + _silk(16, 860, 22, 46, 1500, ph, 0.13, "#FFFFFF", .10, .55, 2, tilt=-0.06)
+          + _fill(1150, 34, 1300, ph+1.0, "#FFFFFF", .16, tilt=-0.05)
+          + _fill(1215, 28, 900, ph+2.4, "#FFFFFF", .14)
+          + '<rect y="900" width="1080" height="450" fill="url(#sh)"/>'
+          + '<ellipse cx="900" cy="170" rx="420" ry="190" fill="#FFFFFF" opacity=".10" transform="rotate(-18 900 170)"/>'
+        )
+    else:
+        body = (
+          '<defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7FCFF"/>'
+          '<stop offset="1" stop-color="#E1F3FE"/></linearGradient></defs>'
+          '<rect width="1080" height="1350" fill="url(#gl)"/>'
+          + _silk(14, -60, 18, 40, 1400, ph, 0.12, "#1F6FB2", .03, .10, 1.6, tilt=0.11)
+          + _fill(1225, 22, 1200, ph+0.6, "#BFE6FD", .45, tilt=-0.03)
+          + _fill(1262, 18, 800, ph+2.0, "#9ED7FA", .30)
+        )
+    return f'<svg class="bg" width="1080" height="1350" viewBox="0 0 1080 1350">{body}{GRAIN}</svg>'
 
 e = html.escape
 # Branding (2026-10-21: Instagram and YouTube share one look — Doktor H2O / @suvyektiv, sky theme).
@@ -88,7 +134,8 @@ for i, s in enumerate(slides, 1):
         if s.get("note"): parts.append(f'<div class="note">{e(s["note"])}</div>')
     if k == "hook": parts.append(f'<div class="swipe">{e(os.environ.get("SWIPE", "Varaqlang →"))}</div>')
     if k == "cta": parts.append(f'<div class="handle">{e(HANDLE if "HANDLE" in os.environ else s["handle"])}</div>')
-    ripple = RIPPLE if s["theme"] == "dark" else ""
+    # BG=premium (default since 2026-11-11): gradient + flowing silk-wave lines + grain; BG=ripple: old circles
+    ripple = premium_bg(s["theme"], i) if os.environ.get("BG", "premium") == "premium" else (RIPPLE if s["theme"] == "dark" else "")
     doc = f"""<!doctype html><html><head><meta charset="utf-8"><style>{fonts}{CSS}{THEME_CSS}</style></head>
 <body><div class="s {s['theme']} {k}">{ripple}
 <div class="top"><div class="brand">{DROP}<span>{BRAND}</span></div><div class="count">{i}/{n}</div></div>

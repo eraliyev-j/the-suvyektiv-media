@@ -10,3 +10,4 @@ YYYY-MM-DD | pillar | topic | hook | CTA#
 2026-10-22 | REEL | Qaynatilgan suv hamma narsadan tozami? (bug' ≠ qaynash, kimyo qoladi) | Choynakdan bug' chiqdimi? Shoshmang, suv hali qaynamagan. | -
 2026-10-28 | 4 Suv va oqova suv boshqaruvi | Unitazga nima tashlamaslik: nam salfetka, yogʻ, fatberg | Unitaz axlat qutisi emas. Londonda 130 tonnalik tiqin shundan boshlangan. | 3
 2026-11-04 | 2 Research paper | Butilka suvdagi nanoplastik (Qian va b., PNAS 2024) | 1 litr butilka suvda 240 mingta plastik zarra. | 1
+2026-11-11 | 1 Suv qanday tozalanadi | Filtr koʻza: faol koʻmir nimani ushlaydi/ushlamaydi, eski kartrijda bakteriya (Chaidez & Gerba 2004) | Eski filtr suvni tozalamaydi. Aksincha, bakteriya koʻpaytiradi. | 2

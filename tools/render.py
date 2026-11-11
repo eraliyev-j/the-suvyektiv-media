@@ -33,7 +33,7 @@ body{font-family:Inter,InterX,sans-serif;-webkit-font-smoothing:antialiased}
 .top{display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:600;letter-spacing:.02em}
 .brand{display:flex;align-items:center;gap:16px;color:#2F80ED}
 .dark .brand{color:#6FA8F5}
-.brand span{color:inherit}
+.brand span{color:inherit}.brand .sep{opacity:.45;margin:0 2px}.brand .who{font-weight:600}
 .brand sub{font-size:.7em;vertical-align:-.15em;line-height:0}
 .count{opacity:.55;font-variant-numeric:tabular-nums}
 .main{flex:1;display:flex;flex-direction:column;justify-content:center}
@@ -104,7 +104,7 @@ def _drops(theme, idx):
             x, y = rnd.uniform(x0, x1), rnd.uniform(y0, y1)
             if any((x-a)**2 + (y-b)**2 < (r + c + 6)**2 for a, b, c in placed):
                 continue
-            if r > 6 and ((860 - r < x < 1080 and 30 - r < y < 160 + r) or (x < 460 + r and y < 150 + r)):
+            if r > 6 and ((860 - r < x < 1080 and 30 - r < y < 160 + r) or (x < 600 + r and y < 150 + r)):
                 continue  # keep the brand and slide counter clear
             placed.append((x, y, r)); cnt -= 1
             ry = r * (1.06 + 0.1 * rnd.random())
@@ -149,7 +149,7 @@ def premium_bg(theme, idx):
 
 e = html.escape
 # Branding (2026-10-21: Instagram and YouTube share one look — Doktor H2O / @suvyektiv, sky theme).
-BRAND = os.environ.get("BRAND", "Doktor H<sub>2</sub>O")  # raw HTML allowed
+BRAND = os.environ.get("BRAND", "Doktor H<sub>2</sub>O <span class=\"sep\">|</span> <span class=\"who\">Javohir Eraliyev</span>")  # 2026-11-11: name added  # raw HTML allowed
 HANDLE = os.environ.get("HANDLE", "@suvyektiv")
 TAGLINE = os.environ.get("TAGLINE", "Suv haqida, oddiy tilda.")
 # THEME=sky: Doktor H2O palette, taken from the YouTube avatar (sky-blue #84D2FD bg, navy "Dr. H2O" text)

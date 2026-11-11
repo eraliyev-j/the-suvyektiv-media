@@ -109,7 +109,7 @@ def _drops(theme, idx):
             placed.append((x, y, r)); cnt -= 1
             ry = r * (1.06 + 0.1 * rnd.random())
             sh_op = .22 if theme == "dark" else .14
-            if r > 18 and rnd.random() < .45:   # sliding drop with a thin trail
+            if r > 18 and rnd.random() < .45 and False:   # trails removed 2026-11-11 (Javohir)
                 tl = r * rnd.uniform(2.5, 5)
                 out.append(f'<path d="M{x:.1f},{y-ry:.1f} C{x-r*.25:.1f},{y-ry-tl*.5:.1f} {x+r*.2:.1f},{y-ry-tl*.8:.1f} {x:.1f},{y-ry-tl:.1f}" '
                            f'stroke="#FFFFFF" stroke-opacity=".35" stroke-width="{r*.28:.1f}" stroke-linecap="round" fill="none"/>')
